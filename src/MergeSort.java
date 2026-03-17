@@ -3,13 +3,25 @@ import java.util.*;
 
 
 public class MergeSort {
-    public static void main(String[] args) {
+    public static long count = 0;
+
+    public static void main(String[] args) throws IOException {
         List<int[]> list = readAllDataSets("test_data.txt");
 
-        mergeSort(list.get(0));
-        for (int x : list.get(0)) {
-            System.out.println(x);
+        BufferedWriter writer = new BufferedWriter(new FileWriter("output_data.txt"));
+        for (int[] array : list) {
+            long startTime = System.nanoTime();
+            count = 0;
+            mergeSort(array);
+            long endTime = System.nanoTime();
+            long totalTime = (endTime - startTime) / 1_000_000;
+            String output = array.length + "\t" + totalTime + "\t" + count;
+            String sb = output;
+            writer.write(sb);
+            System.out.println(array.length + "\t" + count + ", а должно быть " + array.length * Math.ceil(Math.log(array.length)));
+            writer.newLine();
         }
+        writer.close();
     }
 
     public static void mergeSort(int[] array) {
@@ -42,6 +54,7 @@ public class MergeSort {
         int rightLength = rightArray.length;
         int l = 0, r = 0, i = 0;
         while (l < leftLength && r < rightLength) {
+            count++;
             if (leftArray[l] < rightArray[r]) {
                 array[i] = leftArray[l];
                 l++;
