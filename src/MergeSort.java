@@ -16,9 +16,7 @@ public class MergeSort {
             long endTime = System.nanoTime();
             long totalTime = (endTime - startTime) / 1_000_000;
             String output = array.length + "\t" + totalTime + "\t" + count;
-            String sb = output;
-            writer.write(sb);
-            System.out.println(array.length + "\t" + count + ", а должно быть " + array.length * Math.ceil(Math.log(array.length)));
+            writer.write(output);
             writer.newLine();
         }
         writer.close();
